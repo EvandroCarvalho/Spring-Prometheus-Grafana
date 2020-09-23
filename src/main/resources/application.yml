@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: spring-metrics
+  datasource:
+    url: jdbc:mysql://localhost:3306/hqs?useTimezone=true&serverTimezone=UTC&useSSL=false
+    username: root
+    password: admin
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        show_sql: true
+        format_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - metrics
+          - prometheus
+  endpoint:
+    health:
+      show-details: ALWAYS
