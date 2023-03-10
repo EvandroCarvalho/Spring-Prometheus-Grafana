@@ -1,0 +1,1 @@
+exec java -jar $JAVA_OPS -Dspring.profiles.active=$SPRING_PROFILE_ACTIVE app.jar

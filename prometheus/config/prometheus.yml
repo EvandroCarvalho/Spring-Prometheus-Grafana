@@ -1,18 +1,30 @@
 global:
-  scrape_interval:     15s
-  evaluation_interval: 15s
+  scrape_interval:     30s # time to collect endpoint metrics
+  evaluation_interval: 15s # time to check file
 
-rule_files:
-# - "first.rules"
-# - "second.rules"
+#rule_files:
+#  - postgresAlert.rules
+#  - appAlert.rules
+#  - "alert.rules"
 
 scrape_configs:
   - job_name: prometheus
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['prometheus:9090']
 
-  - job_name: spring-metrics
-    scrape_interval: 5s
-    metrics_path: /actuator/prometheus
+  - job_name: schedule-app
+    scrape_interval: 30s
+    metrics_path: "/actuator/prometheus"
     static_configs:
       - targets: [ 'host.docker.internal:8080' ]
+
+#  - job_name: postgres
+#    scrape_interval: 30s
+#    static_configs:
+#      - targets: [ 'postgres-exporter:9187' ]
+
+#alerting:
+#  alertmanagers:
+#    - scheme: http
+#      static_configs:
+#        - targets: [ 'alertmanager:9093' ]
